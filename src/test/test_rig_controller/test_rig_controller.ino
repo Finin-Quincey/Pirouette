@@ -2,6 +2,7 @@
 #include <Arduino.h>
 
 const int STEPS_PER_REVOLUTION = 2048;
+const int MOTOR_RPM = 10;
 
 Stepper upperStepper(STEPS_PER_REVOLUTION, 8, 10, 9, 11);
 Stepper lowerStepper(STEPS_PER_REVOLUTION, 2, 4, 3, 5);
@@ -14,7 +15,7 @@ const int LOWER_STEPPER_OFFSET = 700;
 const double DEGREES_PER_STEP = STEPS_PER_REVOLUTION / 360.0;
 
 const double UPPER_ANGLES[] = {  0,  97,  70,  61, 231, 283, 283,   0, 180, 283};
-const double LOWER_ANGLES[] = {  0, 180,  72, 270, 180, 270,   0, 180,  12, 180};
+const double LOWER_ANGLES[] = {  0, 180,  72, 272, 180, 272,   0, 180,  25, 180};
 
 int displayedNumeral = 0;
 
@@ -23,8 +24,8 @@ void setup(){
     // Pin configuration
     pinMode(SWITCH_PIN, INPUT_PULLUP);
 
-    upperStepper.setSpeed(6);
-    lowerStepper.setSpeed(6);
+    upperStepper.setSpeed(MOTOR_RPM);
+    lowerStepper.setSpeed(MOTOR_RPM);
 
     Serial.begin(9600); // Start the serial monitor
 
