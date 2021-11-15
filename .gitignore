@@ -1,3 +1,16 @@
+# IDE
+.vscode/*
+
+# Archives
+*.zip
+*.tar
+*.gz
+
+# OS
+Thumbs.db
+
+### Auto-generated C++ stuff ###
+
 # Prerequisites
 *.d
 
