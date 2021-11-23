@@ -50,14 +50,18 @@ void loop(){
     displayedNumeral = (displayedNumeral + 1) % 10;
 
     // Really crude test for the time being, just move by the difference between successive numerals, clamped at -180 to 180
-    upperStepper.step(angleToSteps(int(UPPER_ANGLES[displayedNumeral] - UPPER_ANGLES[prevDisplayedNumeral] + 180) % 360 - 180));
-    lowerStepper.step(angleToSteps(int(LOWER_ANGLES[displayedNumeral] - LOWER_ANGLES[prevDisplayedNumeral] + 180) % 360 - 180));
+    upperStepper.step(angleToSteps(clamp180(UPPER_ANGLES[displayedNumeral] - UPPER_ANGLES[prevDisplayedNumeral])));
+    lowerStepper.step(angleToSteps(clamp180(LOWER_ANGLES[displayedNumeral] - LOWER_ANGLES[prevDisplayedNumeral])));
 }
 
 // Helper Methods
 
 int angleToSteps(double angle){
-    return (int)(round(angle * DEGREES_PER_STEP));
+    return int(round(angle * DEGREES_PER_STEP));
+}
+
+double clamp180(double angle){
+    return int(int(angle + 360) % 360 + 180) % 360 - 180;
 }
 
 void zero(Stepper stepper){
