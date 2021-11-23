@@ -47,7 +47,11 @@ void loop(){
     delay(3000);
 
     int prevDisplayedNumeral = displayedNumeral;
-    displayedNumeral = (displayedNumeral + 1) % 10;
+    if(Serial.available() > 0){
+        displayedNumeral = Serial.parseInt();
+    }else{
+        displayedNumeral = (displayedNumeral + 1) % 10;
+    }
 
     // Really crude test for the time being, just move by the difference between successive numerals, clamped at -180 to 180
     upperStepper.step(angleToSteps(clamp180(UPPER_ANGLES[displayedNumeral] - UPPER_ANGLES[prevDisplayedNumeral])));
