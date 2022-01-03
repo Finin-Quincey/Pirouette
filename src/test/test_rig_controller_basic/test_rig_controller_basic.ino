@@ -5,7 +5,7 @@ const int STEPS_PER_REVOLUTION = 2048;
 const int MOTOR_RPM = 10;
 
 Stepper upperStepper(STEPS_PER_REVOLUTION, 8, 10, 9, 11);
-Stepper lowerStepper(STEPS_PER_REVOLUTION, 2, 4, 3, 5);
+Stepper lowerStepper(STEPS_PER_REVOLUTION, 3, 5, 4, 6);
 
 const int SWITCH_PIN = 12;
 
