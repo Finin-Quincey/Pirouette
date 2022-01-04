@@ -99,16 +99,20 @@ void update_logic(){
 
     }else{
         // Change the displayed numeral every few seconds (debug)
-        if(counter++ > 3000){
-            counter = 0;
-            if(Serial.available() > 0){
-                displayedNumeral = Serial.parseInt();
-            }else{
-                displayedNumeral = (displayedNumeral + 1) % 10;
-            }
-            Serial.println(displayedNumeral);
+        if(counter-- <= 0){
+            counter = 3000;
+            // if(Serial.available() > 0){
+            //     displayedNumeral = Serial.parseInt();
+            // }else{
+            //     displayedNumeral = (displayedNumeral + 1) % 10;
+            // }
+            
             upperStepper.moveTo(UPPER_ANGLES[displayedNumeral]);
             lowerStepper.moveTo(LOWER_ANGLES[displayedNumeral]);
+            
+            Serial.println(displayedNumeral);
+            
+            displayedNumeral = (displayedNumeral + 1) % 10;
         }
     }
 }
