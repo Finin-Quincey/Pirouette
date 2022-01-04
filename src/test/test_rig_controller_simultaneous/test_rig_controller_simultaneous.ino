@@ -100,7 +100,7 @@ void update_logic(){
     }else{
         // Change the displayed numeral every few seconds (debug)
         if(counter-- <= 0){
-            counter = 3000;
+            counter = 1500;
             // if(Serial.available() > 0){
             //     displayedNumeral = Serial.parseInt();
             // }else{
