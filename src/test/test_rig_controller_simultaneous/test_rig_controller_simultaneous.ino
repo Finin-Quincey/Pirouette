@@ -15,7 +15,7 @@ static MultiStepper* steppers[] = {
     &lowerStepper
 };
 
-const double UPPER_ANGLES[] = {  0,  97,  70,  61, 231, 283, 283,   0, 180, 283};
+const double UPPER_ANGLES[] = {  0,  97,  70,  61, 228, 283, 283,   0, 180, 283};
 const double LOWER_ANGLES[] = {  0, 180,  72, 270, 180, 270,   0, 180,  25, 180};
 
 int displayedNumeral = 0;
