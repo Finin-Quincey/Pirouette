@@ -3,7 +3,7 @@
 
 // ====================================================== Constants ======================================================
 
-const float MOTOR_RPM = 10;
+const float MOTOR_RPM = 12;
 //const int STEPS_PER_REVOLUTION = 2048;
 //const int ULONG_MAX_VALUE = 4294967295; // So we can deal with overflows, since the Arduino will be running 24/7
 
@@ -21,7 +21,7 @@ const double LOWER_ANGLES[] = {  0, 180,  72, 270, 180, 270,   0, 180,  25, 180}
 int displayedNumeral = 0;
 
 // Time between update cycles, in microseconds
-unsigned long UPDATE_PERIOD = long(1000000 / (MOTOR_RPM / 60 * STEPS_PER_REVOLUTION));
+unsigned long UPDATE_PERIOD = long(1000000 / (MOTOR_RPM / 60.0 * STEPS_PER_REVOLUTION));
 
 int startup_flag = 0;
 
@@ -73,10 +73,8 @@ void loop(){
     unsigned int delayMillis = delayTime / 1000;
 
     // delayMicroseconds doesn't work beyond 16383 so we need to split it up
-    //delayMicroseconds(delayMicros);
-    //delay(delayMillis);
-
-    delay(2);
+    delayMicroseconds(delayMicros);
+    delay(delayMillis);
 
 }
 
