@@ -34,8 +34,8 @@ void setup(){
 
     Serial.begin(9600); // Start the serial monitor
 
-    upperStepper.init(8, 10, 9, 11, 13, 106);
-    lowerStepper.init(3, 5, 4, 6, 13, -168);
+    upperStepper.init(8, 10, 9, 11, 13, 107);
+    lowerStepper.init(3, 5, 4, 6, 13, -169);
 
     // TODO: Ugly code, replace with something else that abstracts the pins behind MultiStepper
 
