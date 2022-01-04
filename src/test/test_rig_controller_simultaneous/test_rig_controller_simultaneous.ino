@@ -10,9 +10,9 @@ const float MOTOR_RPM = 10;
 MultiStepper upperStepper = MultiStepper();
 MultiStepper lowerStepper = MultiStepper();
 
-static const MultiStepper steppers[] = {
-    upperStepper,
-    lowerStepper
+static MultiStepper* steppers[] = {
+    &upperStepper,
+    &lowerStepper
 };
 
 const double UPPER_ANGLES[] = {  0,  97,  70,  61, 231, 283, 283,   0, 180, 283};
@@ -37,22 +37,21 @@ void setup(){
     upperStepper.init(8, 10, 9, 11, 13, 107);
     lowerStepper.init(3, 5, 4, 6, 13, -169);
 
-    // TODO: Ugly code, replace with something else that abstracts the pins behind MultiStepper
-
-    upperStepper.moveBy(350);
-    lowerStepper.moveBy(350);
-
     // Move the steppers off the limit switch if either one is on it to begin with (otherwise we can't zero them)
-    // Because each switch is only shared by two steppers and the switch is on for less than 180deg, we can safely
-    // assume that if we rotate them both at once the switch will open at some point
-    while(!digitalRead(13)){
-        upperStepper.update();
-        lowerStepper.update();
-        delay(2);
+    // TODO: Ugly code, replace with something else that abstracts the pins behind MultiStepper
+    for(int i=0; i<2; i++){
+
+        for(MultiStepper* s : steppers) s->moveBy(180);
+
+        // Because each switch is only shared by two steppers and the switch is on for less than 180deg, we can safely
+        // assume that if we rotate them both at once the switch will open at some point
+        while(!digitalRead(13)){
+            for(MultiStepper* s : steppers) s->update();
+            delay(2);
+        }
     }
 
-    upperStepper.stop();
-    lowerStepper.stop();
+    for(MultiStepper* s : steppers) s->stop();
 
     // Zero the first motor
     upperStepper.zero();
@@ -65,10 +64,7 @@ void loop(){
 
     update_logic();
 
-    //for(MultiStepper s : steppers) s.update();
-
-    upperStepper.update();
-    lowerStepper.update();
+    for(MultiStepper* s : steppers) s->update();
 
     unsigned long elapsed = micros() - t; // Should wrap automatically
 
