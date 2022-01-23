@@ -62,8 +62,8 @@ float MultiStepper::getCurrentAngle(){ return currentAngle; }
 MultiStepper::Direction MultiStepper::getDirection(){ return direction; }
 
 void MultiStepper::release(){
-    //for(int i=0; i<PIN_COUNT; i++) digitalWrite(this->pins[i], 0);
-    releaseTimer++;
+    for(int i=0; i<PIN_COUNT; i++) digitalWrite(this->pins[i], 0);
+    //releaseTimer++;
 }
 
 void MultiStepper::moveTo(double angle){
@@ -106,13 +106,13 @@ void MultiStepper::update(){
     // pointer->nonStaticMember OR (*pointer).nonStaticMember
     // Remember that the 'this' keyword is a pointer! Luckily we can omit it unless there is ambiguity.
 
-    if(releaseTimer > 0){
-        releaseTimer++;
-        if(releaseTimer > 100){
-            for(int i=0; i<PIN_COUNT; i++) digitalWrite(this->pins[i], 0);
-            releaseTimer = 0;
-        }
-    }
+    // if(releaseTimer > 0){
+    //     releaseTimer++;
+    //     if(releaseTimer > 100){
+    //         for(int i=0; i<PIN_COUNT; i++) digitalWrite(this->pins[i], 0);
+    //         releaseTimer = 0;
+    //     }
+    // }
 
     if(direction == STOPPED) return; // Do nothing if we're stopped
 
