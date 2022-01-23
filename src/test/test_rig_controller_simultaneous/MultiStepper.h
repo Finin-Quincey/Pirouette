@@ -71,6 +71,7 @@ class MultiStepper {
         float currentAngle = 0;
         float targetAngle = 0;
         float angleOffset;
+        int releaseTimer = 0;
 
     
     public:
