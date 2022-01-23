@@ -3,7 +3,7 @@
 
 // ====================================================== Constants ======================================================
 
-const float MOTOR_RPM = 12;
+const float MOTOR_RPM = 14;
 //const int STEPS_PER_REVOLUTION = 2048;
 //const int ULONG_MAX_VALUE = 4294967295; // So we can deal with overflows, since the Arduino will be running 24/7
 
