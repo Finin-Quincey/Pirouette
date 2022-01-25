@@ -146,8 +146,3 @@ void MultiStepper::update(){
 
     switchWasOff = switchOff;
 }
-
-// One of my bugbears from the Java world is overuse of interfaces for EVERYTHING, and C++ is practically built on that
-// concept... YAGNI is a powerful principle, don't write code just because someone somewhere *might* need it one day.
-// At least when it's baked into the language we can kind of ignore it most of the time.
-// \endrant
