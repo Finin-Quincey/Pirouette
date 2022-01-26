@@ -32,6 +32,20 @@ class Digit {
 
         const uint8_t switchPin;
 
+        // Bending over backwards to keep the callback definitions encapsulated in this class
+        // C++ just makes it incredibly difficult to write good object-oriented code with proper
+        // separation of concerns. I don't want the main sketch dealing with low-level ISRs!
+        // There is a good reason for this beyond sheer stubbornness: it means I don't have to
+        // repeat myself initialising each stepper's ISR manually (or manually make an array of them),
+        // meaning no chance of forgetting if I were to somehow add another digit
+
+        // Capacity of the internal instance array
+        static const int DIGIT_ARR_CAPACITY = 10;
+        // Array of pointers to all instances of this class
+        // Length is arbitrary but must be at least the number of instances we will have, obviously
+        static Digit *digits[DIGIT_ARR_CAPACITY];
+        static int nextIndex;
+
     public:
 
         // Constructs a new Digit with the given parameters
@@ -39,8 +53,18 @@ class Digit {
               uint8_t lowerPin1, uint8_t lowerPin2, uint8_t lowerPin3, uint8_t lowerPin4, float lowerOffset,
               uint8_t switchPin);
 
+        // Sets up interrupt handlers (ISRs) for all digit instances according to their specified LS pin
+        static void initInterrupts();
+
+        // Updates all digit instances
+        static void updateAll();
+
     private:
 
+        // Updates this digit's logic and stepper motor controllers
+        void update();
+
+        // Called when a falling edge is detected on the limit switch for this digit
         void onLimitSwitchPressed();
 
 };

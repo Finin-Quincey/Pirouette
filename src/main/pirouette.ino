@@ -23,7 +23,7 @@ void setup(){
 
     // Init the objects
 
-    
+    Digit::initInterrupts(); // Finish setup
 
 }
 
@@ -31,5 +31,5 @@ void loop(){
 
     // Update everything that needs updating
 
-    
+    Digit::updateAll();
 }
