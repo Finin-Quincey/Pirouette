@@ -1,4 +1,5 @@
 #include "Utils.h"
+#include <Arduino.h>
 
 float clamp180(float angle){
     // Calculation steps:
@@ -15,4 +16,9 @@ int modulo(int num, int denom){
 
 double sign(double x){
     return (x > 0) - (x < 0); // Neat trick off of SO
+}
+
+void error(String message){
+    Serial.println("Error: " + message);
+    // TODO: Turn LED red
 }
