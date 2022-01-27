@@ -1,5 +1,4 @@
 #include "Utils.h"
-#include <Arduino.h>
 
 float clamp180(float angle){
     // Calculation steps:

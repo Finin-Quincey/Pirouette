@@ -7,6 +7,12 @@
 #ifndef Utils_h
 #define Utils_h
 
+#include <Arduino.h>
+
+// ======================================================================================================
+// Mathematical functions
+// ======================================================================================================
+
 // Shifts the given angle by a multiple of 360 such that -180 < angle <= 180
 float clamp180(float angle);
 
@@ -15,6 +21,10 @@ int modulo(int num, int denom); // Yep, even modulo doesn't work how you expect 
 
 // Returns -1 if x is negative, +1 if x is positive, and 0 if x is zero
 double sign(double x);
+
+// ======================================================================================================
+// Misc functions
+// ======================================================================================================
 
 // Prints the given error message to the serial monitor and turns the onboard LED red
 void error(String message);
