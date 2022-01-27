@@ -32,6 +32,8 @@ class Digit {
 
         const uint8_t switchPin;
 
+        uint8_t displayedNumeral;
+
         // Bending over backwards to keep the callback definitions encapsulated in this class
         // C++ just makes it incredibly difficult to write good object-oriented code with proper
         // separation of concerns. I don't want the main sketch dealing with low-level ISRs!
@@ -61,11 +63,17 @@ class Digit {
 
     private:
 
+        // Starts this digit's zeroing sequence
+        void zero();
+
         // Updates this digit's logic and stepper motor controllers
         void update();
 
         // Called when a falling edge is detected on the limit switch for this digit
         void onLimitSwitchPressed();
+
+        // Setters
+        void setDisplayedNumeral(uint8_t numeral);
 
 };
 

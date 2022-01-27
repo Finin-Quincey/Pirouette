@@ -1,13 +1,20 @@
 #include "Digit.h"
 
-static int nextIndex = 0;
+// Init non-const static fields
+int Digit::nextIndex = 0;
+Digit *Digit::digits[] = {};
 
 Digit::Digit(uint8_t upperPin1, uint8_t upperPin2, uint8_t upperPin3, uint8_t upperPin4, float upperOffset,
              uint8_t lowerPin1, uint8_t lowerPin2, uint8_t lowerPin3, uint8_t lowerPin4, float lowerOffset,
              uint8_t switchPin):
+            // Initialise const members
+            switchPin(switchPin),
+            displayedNumeral(0){
 
-    // Initialise const members
-    switchPin(switchPin){
+    if(nextIndex > DIGIT_ARR_CAPACITY){
+        error("Too many digits!");
+        return;
+    }
 
     digits[nextIndex++] = this; // Add to static array
 
@@ -17,9 +24,39 @@ Digit::Digit(uint8_t upperPin1, uint8_t upperPin2, uint8_t upperPin3, uint8_t up
     
 }
 
+void Digit::zero(){
+    
+}
+
+void Digit::update(){
+    // Update stepper motors
+    bool keepingUp = true;
+    keepingUp &= upperStepper.run();
+    keepingUp &= lowerStepper.run();
+    // If either motor is falling behind, display an error
+    if(!keepingUp) error("Can't keep up with the required stepping rate!");
+}
+
 void Digit::onLimitSwitchPressed(){
 
+    // If only one motor is rotating, it's safe to assume it pressed the limit switch
+
+    // If both motors are rotating but one is not near the limit switch, we assume it was the other one
+    // The safety margin means this assumption is still valid for small amounts of drift
+
+    // 
+
 }
+
+// Setters
+
+void Digit::setDisplayedNumeral(uint8_t numeral){
+    if(this->displayedNumeral == numeral) return; // Ignore if we're already displaying the requested number
+    this->displayedNumeral = numeral;
+    // Do stuff
+}
+
+// Getters
 
 // Static methods
 
