@@ -12,10 +12,10 @@
 
 // External libraries
 #include <Arduino.h>
-#include <AccelStepper.h>
 
 // Internal classes
 #include "Utils.h"
+#include "Disc.h"
 
 // TODO: Probably move these constants inside the class
 
@@ -27,12 +27,14 @@ class Digit {
 
     private:
 
-        AccelStepper upperStepper;
-        AccelStepper lowerStepper;
+        Disc upperDisc;
+        Disc lowerDisc;
 
         const uint8_t switchPin;
 
         uint8_t displayedNumeral;
+
+        uint8_t zeroingStep; // 0 = not zeroing, 1 = preparing, 2 = zeroing upper disc, 3 = zeroing lower disc
 
         // Bending over backwards to keep the callback definitions encapsulated in this class
         // C++ just makes it incredibly difficult to write good object-oriented code with proper
@@ -46,7 +48,7 @@ class Digit {
         // Array of pointers to all instances of this class
         // Length is arbitrary but must be at least the number of instances we will have, obviously
         static Digit *digits[DIGIT_ARR_CAPACITY];
-        static int nextIndex;
+        static int numDigits;
 
     public:
 
@@ -58,22 +60,31 @@ class Digit {
         // Sets up interrupt handlers (ISRs) for all digit instances according to their specified LS pin
         static void initInterrupts();
 
+        // Handles all interrupts and calls the appropriate digit(s)
+        static void processInterrupt(uint8_t pin);
+
         // Updates all digit instances
         static void updateAll();
-
-    private:
 
         // Starts this digit's zeroing sequence
         void zero();
 
+        // Sets the displayed numeral to the given value
+        void setDisplayedNumeral(uint8_t numeral);
+
+        // Returns true if this digit is currently performing the zeroing sequence, false otherwise
+        bool isZeroing();
+
+        // Returns true if the limit switch for this digit is pressed
+        bool isLimitSwitchPressed();
+
         // Updates this digit's logic and stepper motor controllers
         void update();
 
+    private:
+
         // Called when a falling edge is detected on the limit switch for this digit
         void onLimitSwitchPressed();
-
-        // Setters
-        void setDisplayedNumeral(uint8_t numeral);
 
 };
 
