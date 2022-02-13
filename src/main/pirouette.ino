@@ -10,6 +10,17 @@
 
 // Internal classes
 #include "Digit.h"
+#include "LED.h"
+#include "Button.h"
+#include "Utils.h"
+
+const float LED_BRIGHTNESS = 0.4;
+
+LED led(11, 10, 9);
+
+Button selectBtn(6);
+Button plusBtn  (7);
+Button minusBtn (8);
 
 //                   Upper Stepper          Lower Stepper          LS
 //                   1   2   3   4   OFF    1   2   3   4   OFF
@@ -42,19 +53,34 @@ void setup(){
     hrsUnitsDigit.zero();
     minsTensDigit.zero();
     minsUnitsDigit.zero();
+
+    led.setColour({0, 0, LED_BRIGHTNESS}); // White
+    led.startEffect(LED::Effect::BREATHE, 6000);
 }
 
 void loop(){
 
-    // Update everything that needs updating
+    // Button + LED test
+    if(selectBtn.justPressed()) led.setColour({180, 1, LED_BRIGHTNESS}); // Cyan
+    //if(plusBtn.justPressed())   led.setColour({270, 1, LED_BRIGHTNESS}); // Magenta
+    if(minusBtn.justPressed())  led.setColour({ 30, 1, LED_BRIGHTNESS}); // Orange
 
-    Digit::updateAll();
+    if(selectBtn.getHoldTime() > 3000) led.startEffect(LED::Effect::FLASH, 1000);
 
     if(!hrsTensDigit.isZeroing() && !hrsUnitsDigit.isZeroing() && !minsTensDigit.isZeroing() && !minsUnitsDigit.isZeroing()){
         if(millis() % 10000 == 0){
             updateLogic();
         }
     }
+
+    // Update everything that needs updating
+    // This should always be done last to give us the best chance of detecting events that happened between updates,
+    // before internal variables get updated
+    Digit::updateAll();
+    led.update();
+    selectBtn.update();
+    plusBtn.update();
+    minusBtn.update();
 }
 
 void updateLogic(){
