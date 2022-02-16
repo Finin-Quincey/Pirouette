@@ -20,15 +20,12 @@
 // TODO: Probably move these constants inside the class
 
 // Angle lookup tables (for digits 0-9 in order)
-static const double UPPER_ANGLES[] = {  0,  97,  70,  61, 228, 283, 283,   0, 180, 283};
+static const double UPPER_ANGLES[] = {  0,  97,  70,  61, 225, 283, 283,   0, 180, 283};
 static const double LOWER_ANGLES[] = {  0, 180,  72, 270, 180, 270,   0, 180,  25, 180};
 
 class Digit {
 
     private:
-
-        Disc upperDisc;
-        Disc lowerDisc;
 
         const uint8_t switchPin;
 
@@ -51,6 +48,10 @@ class Digit {
         static int numDigits;
 
     public:
+
+        // DEBUG: Public so we can see what's going on, make private when finished
+        Disc upperDisc;
+        Disc lowerDisc;
 
         // Constructs a new Digit with the given parameters
         Digit(uint8_t upperPin1, uint8_t upperPin2, uint8_t upperPin3, uint8_t upperPin4, float upperOffset,

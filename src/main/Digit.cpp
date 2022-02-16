@@ -86,7 +86,7 @@ void Digit::update(){
 
 void Digit::onLimitSwitchPressed(){
 
-    if(zeroingStep == 0) return; // DEBUG: Disable active zeroing
+    //if(zeroingStep == 0) return; // DEBUG: Disable active zeroing
 
     // If only one motor is rotating, it's safe to assume it pressed the limit switch (we only ever zero during CW rotation)
     // If both motors are rotating but one is not near the limit switch, we assume it was the other one
@@ -96,15 +96,12 @@ void Digit::onLimitSwitchPressed(){
         // However, if all we're going to do is set a flag then arguably that's no better than polling the switch pin
         // in update() anyway, although it would still have the advantage of debouncing the switch.
         // For now I'm going to take a chance and hope that the compiler won't optimise out anything important...
-        // A more pressing problem here is that AccelStepper helpfully stops the motor whenever you call this :(
-        // I may therefore need to record the motor position (in the Disc class) and wait until the motor stops before
-        // actually setting it, otherwise active zeroing won't work
-        upperDisc.zero();
+        upperDisc.zero(zeroingStep == 2);
         // If we're doing the zeroing sequence, immediately move the motor back a bit so it's not on the limit switch
         if(zeroingStep == 2) upperDisc.moveBy(-LS_SAFETY_MARGIN); // This should cancel the current move
 
     }else if(lowerDisc.getCurrentDirection() == 1 && (!upperDisc.isMoving() || !upperDisc.isNearLimitSwitch())){
-        lowerDisc.zero();
+        lowerDisc.zero(zeroingStep == 3);
         // If we're doing the zeroing sequence, stop the motor (no need to move it back since we're done zeroing)
         if(zeroingStep == 3) lowerDisc.stop();
     }

@@ -55,17 +55,17 @@ const hsv _WHITE   = {  0, 0, 1};
 
 const hsv _RED     = {  0, 1, 1};
 const hsv _GREEN   = {120, 1, 1};
-const hsv _BLUE    = {240, 0, 0};
+const hsv _BLUE    = {240, 1, 1};
 
-const hsv _CYAN    = {180, 0, 0};
-const hsv _MAGENTA = {300, 0, 0};
-const hsv _YELLOW  = { 60, 0, 0};
+const hsv _CYAN    = {180, 1, 1};
+const hsv _MAGENTA = {300, 1, 1};
+const hsv _YELLOW  = { 60, 1, 1};
 
-const hsv _ORANGE  = { 30, 0, 0};
-const hsv _LIME    = { 90, 0, 0};
-const hsv _TEAL    = {150, 0, 0};
-const hsv _L_BLUE  = {210, 0, 0};
-const hsv _PURPLE  = {270, 0, 0};
-const hsv _PINK    = {330, 0, 0};
+const hsv _ORANGE  = { 30, 1, 1};
+const hsv _LIME    = { 90, 1, 1};
+const hsv _TEAL    = {150, 1, 1};
+const hsv _L_BLUE  = {210, 1, 1};
+const hsv _PURPLE  = {270, 1, 1};
+const hsv _PINK    = {330, 1, 1};
 
 #endif

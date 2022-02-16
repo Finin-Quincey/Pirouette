@@ -12,8 +12,17 @@ Disc::Disc(uint8_t pin1, uint8_t pin2, uint8_t pin3, uint8_t pin4, float offset)
     stepper.setAcceleration(ACCELERATION);
 }
 
-void Disc::zero(){
-    stepper.setCurrentPosition(-offset / STEP_ANGLE);
+void Disc::zero(bool force){
+    if(force){
+        // When initially zeroing, we don't know where the motor is so the deferred method won't work
+        // Luckily, in this case stopping immediately is exactly what we want anyway
+        stepper.setCurrentPosition(-offset / STEP_ANGLE);
+
+    }else if(!posDirty){ // Ignore multiple calls during one movement (debounces switch)
+        // Record the motor position that should be zero but don't actually set it yet
+        zeroCorrection = stepper.currentPosition();
+        posDirty = true; // Mark the position as dirty so we know to set it later
+    }
 }
 
 void Disc::update(){
@@ -21,11 +30,18 @@ void Disc::update(){
     stepper.run();
 
     if(isMoving()){
-        if(pinsOff) pinsOff == false;
+        if(pinsOff) pinsOff == false; // Reset pins off flag
+    
     }else{
+        // Disable output pins when the motor stops, if they're not already disabled
         if(!pinsOff){
             stepper.disableOutputs();
             pinsOff == true;
+        }
+        // Perform deferred zeroing if necessary
+        if(posDirty){
+            stepper.setCurrentPosition(stepper.currentPosition() - zeroCorrection - offset / STEP_ANGLE);
+            posDirty = false;
         }
     }
     //if(!keepingUp) error("Can't keep up with the required stepping rate!");
@@ -63,7 +79,7 @@ bool Disc::isMoving(){
 }
 
 bool Disc::isNearLimitSwitch(){
-    float delta = clamp180(stepper.currentPosition() * STEP_ANGLE - offset); // Angle from LS start position
+    float delta = clamp180(stepper.currentPosition() * STEP_ANGLE + offset); // Angle from LS start position
     return delta > -LS_SAFETY_MARGIN && delta < LS_ON_REGION + LS_SAFETY_MARGIN;
 }
 

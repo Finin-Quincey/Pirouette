@@ -24,10 +24,10 @@ Button minusBtn (8);
 
 //                   Upper Stepper          Lower Stepper          LS
 //                   1   2   3   4   OFF    1   2   3   4   OFF
-Digit hrsTensDigit  (22, 23, 24, 25,   9.0, 50, 51, 52, 53, 279.0,  3);
-Digit hrsUnitsDigit (26, 27, 28, 29,  12.0, 46, 47, 48, 49, 279.0,  2);
-Digit minsTensDigit (30, 31, 32, 33,  13.0, 42, 43, 44, 45, 280.0, 18);
-Digit minsUnitsDigit(34, 35, 36, 37,  11.0, 38, 39, 40, 41, 281.0, 19);
+Digit hrsTensDigit  (22, 23, 24, 25,   5.0, 50, 51, 52, 53, 278.0,  3);
+Digit hrsUnitsDigit (26, 27, 28, 29,   9.0, 46, 47, 48, 49, 277.0,  2);
+Digit minsTensDigit (30, 31, 32, 33,  13.0, 42, 43, 44, 45, 279.0, 18);
+Digit minsUnitsDigit(34, 35, 36, 37,  10.0, 38, 39, 40, 41, 281.0, 19);
 
 int hrsTens = 1;
 int hrsUnits = 1;
@@ -61,11 +61,21 @@ void setup(){
 void loop(){
 
     // Button + LED test
-    if(selectBtn.justPressed()) led.setColour({180, 1, LED_BRIGHTNESS}); // Cyan
+    //if(selectBtn.justPressed()) led.setColour({180, 1, LED_BRIGHTNESS}); // Cyan
     //if(plusBtn.justPressed())   led.setColour({270, 1, LED_BRIGHTNESS}); // Magenta
-    if(minusBtn.justPressed())  led.setColour({ 30, 1, LED_BRIGHTNESS}); // Orange
+    //if(minusBtn.justPressed())  led.setColour({ 30, 1, LED_BRIGHTNESS}); // Orange
 
-    if(selectBtn.getHoldTime() > 3000) led.startEffect(LED::Effect::FLASH, 1000);
+    //if(selectBtn.getHoldTime() > 3000) led.startEffect(LED::Effect::FLASH, 1000);
+
+    // DEBUG
+    // Upper = orange, lower = purple, both = teal, neither = white
+    if(minsUnitsDigit.upperDisc.posDirty){
+        led.setColour(minsUnitsDigit.lowerDisc.posDirty ? _TEAL : _ORANGE);
+    }else if(minsUnitsDigit.lowerDisc.posDirty){
+        led.setColour(_PURPLE);
+    }else{
+        led.setColour(_WHITE);
+    }
 
     if(!hrsTensDigit.isZeroing() && !hrsUnitsDigit.isZeroing() && !minsTensDigit.isZeroing() && !minsUnitsDigit.isZeroing()){
         if(millis() % 10000 == 0){

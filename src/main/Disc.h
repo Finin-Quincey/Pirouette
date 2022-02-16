@@ -31,15 +31,21 @@ class Disc {
         AccelStepper stepper;
         float offset;
         bool pinsOff; // Keeps track of whether the pins are turned off or not, so we don't keep issuing write commands
+        volatile long zeroCorrection; // Set during active zeroing to record the stepper position when the LS turned on
 
     public:
+
+        // DEBUG: Public so we can see what's going on, make private when finished
+        volatile bool posDirty; // True if zero() was called and we haven't actually zeroed yet (used for active zeroing)
 
         // Creates a new disc with the given pins and offset angle
         Disc(uint8_t pin1, uint8_t pin2, uint8_t pin3, uint8_t pin4, float offset);
 
         // Zeroes this disc's position by setting the current angle as its zero point, with the offset that
         // was specified when the disc was created. This is called when it triggers the limit switch.
-        void zero();
+        // Due to library limitations, the actual zeroing is deferred to when the disc stops. The force parameter
+        // overrides this behaviour and zeroes it directly, causing the disc to stop immediately.
+        void zero(bool force);
 
         // Polls the disc's stepper motor - see AccelStepper::run() for more details
         void update();
