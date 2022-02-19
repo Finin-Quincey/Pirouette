@@ -20,8 +20,8 @@
 
 // TODO: Probably move these constants inside the class
 
-// Angle lookup tables (for digits 0-9 in order)
-static const double UPPER_ANGLES[] = {  0,  97,  70,  61, 225, 283, 283,   0, 180, 283};
+// Angle lookup tables                  0    1    2    3    4    5    6    7    8    9
+static const double UPPER_ANGLES[] = {  0,  94,  70,  61, 225, 283, 268,   0, 180, 283};
 static const double LOWER_ANGLES[] = {  0, 180,  72, 270, 180, 270,   0, 180,  25, 180};
 
 class Digit : public Tickable {
