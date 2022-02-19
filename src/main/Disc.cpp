@@ -13,12 +13,19 @@ Disc::Disc(uint8_t pin1, uint8_t pin2, uint8_t pin3, uint8_t pin4, float offset)
 }
 
 void Disc::zero(bool force){
+    // Full zeroing sequence
     if(force){
         // When initially zeroing, we don't know where the motor is so the deferred method won't work
         // Luckily, in this case stopping immediately is exactly what we want anyway
         stepper.setCurrentPosition(-offset / STEP_ANGLE);
 
+    // Active zeroing
     }else if(!posDirty){ // Ignore multiple calls during one movement (debounces switch)
+
+        // Sanity check - if the apparent drift is large, it's probably a spurious limit switch trigger
+        // TODO: Still haven't worked out exactly why that's happening - suspected hardware issue
+        if(abs(clamp180(stepper.currentPosition() * STEP_ANGLE + offset)) > MAX_CORRECTION_ANGLE) return;
+
         // Record the motor position that should be zero but don't actually set it yet
         zeroCorrection = stepper.currentPosition();
         posDirty = true; // Mark the position as dirty so we know to set it later

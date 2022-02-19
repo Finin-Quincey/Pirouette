@@ -23,6 +23,7 @@ static const int MAX_SPEED = 380;                               // Max motor spe
 static const int ACCELERATION = 800;                            // Motor acceleration in steps/s^2
 static const float LS_ON_REGION = 45;                           // Size of the region in which the limit switch is pressed
 static const float LS_SAFETY_MARGIN = 10;                       // Safety margin for assuming the limit switch isn't pressed
+static const float MAX_CORRECTION_ANGLE = 8;                    // Maximum correction angle for active zeroing, in degrees
 
 // This class *doesn't* extend tickable because it's more explicit to update it from Digit::update() than to let it be
 // handled behind-the-scenes, and it also gives us more control over the update order
@@ -45,8 +46,9 @@ class Disc {
 
         // Zeroes this disc's position by setting the current angle as its zero point, with the offset that
         // was specified when the disc was created. This is called when it triggers the limit switch.
-        // Due to library limitations, the actual zeroing is deferred to when the disc stops. The force parameter
-        // overrides this behaviour and zeroes it directly, causing the disc to stop immediately.
+        // Due to library limitations, the actual zeroing is deferred to when the disc stops. Setting force to true
+        // overrides this behaviour and zeroes it directly, causing the disc to stop immediately (intended for use during
+        // full zeroing sequence)
         void zero(bool force);
 
         // Polls the disc's stepper motor - see AccelStepper::run() for more details
