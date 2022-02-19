@@ -17,6 +17,8 @@
 
 const float LED_BRIGHTNESS = 0.4;
 
+const hsv LED_CLR_ERROR = {0, 1, LED_BRIGHTNESS}; // Red
+
 LED led(8, 7, 6); // Avoid pins 9 and 10, these use the same timer (2) as tone() so will interfere with it
 
 Button selectBtn(4);
@@ -69,6 +71,10 @@ void loop(){
     //if(minusBtn.justPressed())  led.setColour({ 30, 1, LED_BRIGHTNESS}); // Orange
 
     //if(selectBtn.getHoldTime() > 3000) led.startEffect(LED::Effect::FLASH, 1000);
+    if(errored){
+        led.setColour(LED_CLR_ERROR);
+        return; // Do nothing else
+    }
 
     // DEBUG
     // Upper = orange, lower = purple, both = teal, neither = white

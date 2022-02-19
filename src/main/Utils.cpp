@@ -1,5 +1,7 @@
 #include "Utils.h"
 
+bool errored = false;
+
 float clamp180(float angle){
     // Calculation steps:
     // abs(angle) - 180                                     How far outside the -180 to 180 range the input angle is
@@ -19,7 +21,7 @@ double sign(double x){
 
 void error(String message){
     Serial.println("Error: " + message);
-    // TODO: Turn LED red (can we even do this from in here?)
+    errored = true;
 }
 
 hsv toHSV(rgb in){

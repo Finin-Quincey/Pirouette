@@ -9,6 +9,8 @@
 
 #include <Arduino.h>
 
+extern bool errored; // True if the program encountered an error somewhere, false otherwise
+
 // ======================================================================================================
 // Mathematical functions
 // ======================================================================================================
