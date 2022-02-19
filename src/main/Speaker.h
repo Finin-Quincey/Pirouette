@@ -10,8 +10,9 @@
 
 // External libraries
 #include <Arduino.h>
+#include "Tickable.h"
 
-class Speaker {
+class Speaker : public Tickable {
 
     private:
 
@@ -24,6 +25,8 @@ class Speaker {
         void playTone(unsigned int frequency, unsigned long millis);
 
         void silence();
+        
+        void update() override;
 };
 
 #endif

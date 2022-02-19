@@ -24,6 +24,8 @@ static const int ACCELERATION = 800;                            // Motor acceler
 static const float LS_ON_REGION = 45;                           // Size of the region in which the limit switch is pressed
 static const float LS_SAFETY_MARGIN = 10;                       // Safety margin for assuming the limit switch isn't pressed
 
+// This class *doesn't* extend tickable because it's more explicit to update it from Digit::update() than to let it be
+// handled behind-the-scenes, and it also gives us more control over the update order
 class Disc {
 
     private:

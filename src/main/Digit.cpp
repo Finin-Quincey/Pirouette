@@ -23,7 +23,7 @@ Digit::Digit(uint8_t upperPin1, uint8_t upperPin2, uint8_t upperPin3, uint8_t up
     digits[numDigits++] = this; // Add to static array
 
     // Configure limit switch pin
-    pinMode(switchPin, INPUT_PULLUP);
+    pinMode(switchPin, INPUT_PULLUP); // TODO: This should probably be in initInterrupts()
 }
 
 void Digit::zero(){
@@ -143,9 +143,4 @@ void Digit::initInterrupts(){
 
 void Digit::processInterrupt(uint8_t pin){
     for(int i=0; i<numDigits; i++) if(digits[i]->switchPin == pin) digits[i]->onLimitSwitchPressed();
-}
-
-void Digit::updateAll(){
-    //for(Digit *d : digits) d->update();
-    for(int i=0; i<numDigits; i++) digits[i]->update();
 }

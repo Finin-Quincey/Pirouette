@@ -14,3 +14,7 @@ void Speaker::playTone(unsigned int frequency, unsigned long millis){
 void Speaker::silence(){
     noTone(pin);
 }
+
+void Speaker::update(){
+    // TODO
+}

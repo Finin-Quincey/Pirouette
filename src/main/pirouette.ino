@@ -94,11 +94,7 @@ void loop(){
     // Update everything that needs updating
     // This should always be done last to give us the best chance of detecting events that happened between updates,
     // before internal variables get updated
-    Digit::updateAll();
-    led.update();
-    selectBtn.update();
-    plusBtn.update();
-    minusBtn.update();
+    Tickable::updateAll();
 }
 
 void updateLogic(){

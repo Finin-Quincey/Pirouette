@@ -13,9 +13,10 @@
 #include <Arduino.h>
 
 // Internal classes
+#include "Tickable.h"
 #include "Utils.h"
 
-class LED {
+class LED : public Tickable {
 
     public:
 
@@ -38,7 +39,7 @@ class LED {
 
         LED(uint8_t pinR, uint8_t pinG, uint8_t pinB);
 
-        void update();
+        void update() override;
 
         // Turns the LED off without setting the colour (cancels any effects)
         void off();

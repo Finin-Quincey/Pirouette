@@ -14,6 +14,7 @@
 #include <Arduino.h>
 
 // Internal classes
+#include "Tickable.h"
 #include "Utils.h"
 #include "Disc.h"
 
@@ -23,7 +24,7 @@
 static const double UPPER_ANGLES[] = {  0,  97,  70,  61, 225, 283, 283,   0, 180, 283};
 static const double LOWER_ANGLES[] = {  0, 180,  72, 270, 180, 270,   0, 180,  25, 180};
 
-class Digit {
+class Digit : public Tickable {
 
     private:
 
@@ -64,9 +65,6 @@ class Digit {
         // Handles all interrupts and calls the appropriate digit(s)
         static void processInterrupt(uint8_t pin);
 
-        // Updates all digit instances
-        static void updateAll();
-
         // Starts this digit's zeroing sequence
         void zero();
 
@@ -80,7 +78,7 @@ class Digit {
         bool isLimitSwitchPressed();
 
         // Updates this digit's logic and stepper motor controllers
-        void update();
+        void update() override; // Best practice is to use override and NOT virtual here (technically neither is necessary)
 
     private:
 

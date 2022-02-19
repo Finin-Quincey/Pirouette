@@ -11,7 +11,9 @@
 // External libraries
 #include <Arduino.h>
 
-class Button {
+#include "Tickable.h"
+
+class Button : public Tickable {
     
     private:
 
@@ -24,7 +26,7 @@ class Button {
         Button(uint8_t pin);
 
         // Updates this button's state/logic
-        void update();
+        void update() override;
 
         // Returns true if this button is currently pressed, false otherwise
         // Note that this is true every tick while the button is held; if you need to detect rising or falling edges,
