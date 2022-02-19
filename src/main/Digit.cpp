@@ -10,7 +10,7 @@ Digit::Digit(uint8_t upperPin1, uint8_t upperPin2, uint8_t upperPin3, uint8_t up
 
         // Initialise const members
         switchPin(switchPin),
-        displayedNumeral(0),
+        displayedNumeral(10), // Start outside valid range so it always activates first time
         zeroingStep(0),
         upperDisc(Disc(upperPin1, upperPin2, upperPin3, upperPin4, upperOffset)),
         lowerDisc(Disc(lowerPin1, lowerPin2, lowerPin3, lowerPin4, lowerOffset)){
