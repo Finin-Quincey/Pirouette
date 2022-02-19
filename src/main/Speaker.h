@@ -1,0 +1,29 @@
+// ======================================================================================================
+// Speaker.h
+// ======================================================================================================
+// Class representing a speaker driven via the Arduino's tone function (either directly or more likely,
+// via a MOSFET or other driver circuit).
+// ======================================================================================================
+
+#ifndef Speaker_h
+#define Speaker_h
+
+// External libraries
+#include <Arduino.h>
+
+class Speaker {
+
+    private:
+
+        const uint8_t pin;
+
+    public:
+
+        Speaker(uint8_t pin);
+
+        void playTone(unsigned int frequency, unsigned long millis);
+
+        void silence();
+};
+
+#endif

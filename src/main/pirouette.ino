@@ -12,15 +12,18 @@
 #include "Digit.h"
 #include "LED.h"
 #include "Button.h"
+#include "Speaker.h"
 #include "Utils.h"
 
 const float LED_BRIGHTNESS = 0.4;
 
-LED led(11, 10, 9);
+LED led(8, 7, 6); // Avoid pins 9 and 10, these use the same timer (2) as tone() so will interfere with it
 
-Button selectBtn(6);
-Button plusBtn  (7);
-Button minusBtn (8);
+Button selectBtn(4);
+Button plusBtn  (5);
+Button minusBtn (9);
+
+Speaker speaker(12);
 
 //                   Upper Stepper          Lower Stepper          LS
 //                   1   2   3   4   OFF    1   2   3   4   OFF
@@ -30,9 +33,9 @@ Digit minsTensDigit (30, 31, 32, 33,  13.0, 42, 43, 44, 45, 279.0, 18);
 Digit minsUnitsDigit(34, 35, 36, 37,  10.0, 38, 39, 40, 41, 281.0, 19);
 
 int hrsTens = 1;
-int hrsUnits = 1;
-int minsTens = 1;
-int minsUnits = 1;
+int hrsUnits = 9;
+int minsTens = 4;
+int minsUnits = 5;
 
 void setup(){
 
@@ -54,8 +57,8 @@ void setup(){
     minsTensDigit.zero();
     minsUnitsDigit.zero();
 
-    led.setColour({0, 0, LED_BRIGHTNESS}); // White
-    led.startEffect(LED::Effect::BREATHE, 6000);
+    led.setColour({0, 1, LED_BRIGHTNESS}); // Red
+    led.startEffect(LED::Effect::RAINBOW, 6000);
 }
 
 void loop(){
@@ -69,13 +72,18 @@ void loop(){
 
     // DEBUG
     // Upper = orange, lower = purple, both = teal, neither = white
-    if(minsUnitsDigit.upperDisc.posDirty){
-        led.setColour(minsUnitsDigit.lowerDisc.posDirty ? _TEAL : _ORANGE);
-    }else if(minsUnitsDigit.lowerDisc.posDirty){
-        led.setColour(_PURPLE);
-    }else{
-        led.setColour(_WHITE);
-    }
+    // if(minsUnitsDigit.upperDisc.posDirty){
+    //     led.setColour(minsUnitsDigit.lowerDisc.posDirty ? _TEAL : _ORANGE);
+    // }else if(minsUnitsDigit.lowerDisc.posDirty){
+    //     led.setColour(_PURPLE);
+    // }else{
+    //     led.setColour(_WHITE);
+    // }
+
+    // Button + speaker test
+    if(selectBtn.justPressed()) speaker.playTone(800, 100); // Boop
+    if(plusBtn.justPressed())   speaker.playTone(1000, 100); // Beep
+    if(minusBtn.justPressed())  speaker.playTone(1200, 100); // Bip
 
     if(!hrsTensDigit.isZeroing() && !hrsUnitsDigit.isZeroing() && !minsTensDigit.isZeroing() && !minsUnitsDigit.isZeroing()){
         if(millis() % 10000 == 0){

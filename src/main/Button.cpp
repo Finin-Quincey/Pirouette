@@ -6,7 +6,6 @@ Button::Button(uint8_t pin):
         holdStartTime(0){ // Wanted to use nan here just in case millis() returns zero, but that didn't work :(
 
     pinMode(pin, INPUT_PULLUP);
-
 }
 
 void Button::update(){
