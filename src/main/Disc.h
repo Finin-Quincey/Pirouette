@@ -19,8 +19,8 @@
 // Constants
 static const int STEPS_PER_REVOLUTION = 2048;                   // Number of steps to rotate the output shaft 360 degrees
 static const float STEP_ANGLE = 360.0 / STEPS_PER_REVOLUTION;   // Angle the output shaft rotates through each step
-static const int MAX_SPEED = 380;                               // Max motor speed in steps/s
-static const int ACCELERATION = 800;                            // Motor acceleration in steps/s^2
+static const int MAX_SPEED = 800;                               // Max motor speed in steps/s
+static const int ACCELERATION = 1400;                           // Motor acceleration in steps/s^2
 static const float LS_ON_REGION = 45;                           // Size of the region in which the limit switch is pressed
 static const float LS_SAFETY_MARGIN = 10;                       // Safety margin for assuming the limit switch isn't pressed
 static const float MAX_CORRECTION_ANGLE = 8;                    // Maximum correction angle for active zeroing, in degrees
