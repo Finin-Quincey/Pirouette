@@ -43,7 +43,9 @@ void LED::setColourInternal(hsv colour){
 }
 
 void LED::fadeTo(hsv colour, float duration){
-    // TODO
+    stopEffect();
+    fadeColour = colour;
+    
 }
 
 void LED::fadeOut(float duration){
