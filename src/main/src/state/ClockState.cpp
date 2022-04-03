@@ -1,7 +1,7 @@
 #include "ClockState.h"
 
 ClockState::ClockState():
-    State({175, 0, LED_BRIGHTNESS}, LED::Effect::NONE, 0){
+    State({175, 1, LED_BRIGHTNESS}, LED::Effect::NONE, 0){
 }
 
 void ClockState::onEntry(){

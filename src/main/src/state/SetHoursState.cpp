@@ -1,7 +1,7 @@
 #include "SetHoursState.h"
 
 SetHoursState::SetHoursState():
-    State({175, 0, LED_BRIGHTNESS}, LED::Effect::FLASH, 1000){
+    State({175, 1, LED_BRIGHTNESS}, LED::Effect::FLASH, 1000){
 }
 
 void SetHoursState::onEntry(){
