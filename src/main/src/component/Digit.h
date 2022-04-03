@@ -68,8 +68,8 @@ class Digit : public Tickable {
         // Starts this digit's zeroing sequence
         void zero();
 
-        // Sets the displayed numeral to the given value
-        void setDisplayedNumeral(uint8_t numeral);
+        // Sets the displayed numeral to the given value, optionally overriding checks against the current numeral
+        void setDisplayedNumeral(uint8_t numeral, bool force);
 
         // Returns true if this digit is currently performing the zeroing sequence, false otherwise
         bool isZeroing();

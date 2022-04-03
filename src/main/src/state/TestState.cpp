@@ -9,5 +9,17 @@ void TestState::onEntry(){
 }
 
 State* TestState::update(){
+    
+    if(selectBtn.justReleased()) return STATE_ZEROING;
+
+    hrsTensDigit  .upperDisc.moveBy(10);
+    hrsTensDigit  .lowerDisc.moveBy(10);
+    hrsUnitsDigit .upperDisc.moveBy(10);
+    hrsUnitsDigit .lowerDisc.moveBy(10);
+    minsTensDigit .upperDisc.moveBy(10);
+    minsTensDigit .lowerDisc.moveBy(10);
+    minsUnitsDigit.upperDisc.moveBy(10);
+    minsUnitsDigit.lowerDisc.moveBy(10);
+
     return this;
 }

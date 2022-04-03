@@ -107,11 +107,11 @@ void Digit::onLimitSwitchPressed(){
     }
 }
 
-void Digit::setDisplayedNumeral(uint8_t numeral){
+void Digit::setDisplayedNumeral(uint8_t numeral, bool force){
 
     if(numeral < 0 || numeral > 9) error("Invalid numeral!");
     
-    if(this->displayedNumeral == numeral) return; // Ignore if we're already displaying the requested number
+    if(!force && this->displayedNumeral == numeral) return; // Ignore if we're already displaying the requested number
     this->displayedNumeral = numeral;
     
     upperDisc.moveTo(UPPER_ANGLES[numeral]);

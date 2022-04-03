@@ -59,9 +59,9 @@ void do_setup();
 void do_loop();
 
 // Sets the left-hand display to the given number (need not be a number of hours, it's just convenient to call it that)
-void setHours(uint8_t hours);
+void setHours(uint8_t hours, bool force);
 
 // Sets the right-hand display to the given number (need not be a number of minutes, it's just convenient to call it that)
-void setMinutes(uint8_t minutes);
+void setMinutes(uint8_t minutes, bool force);
 
 #endif

@@ -6,6 +6,7 @@ ClockState::ClockState():
 
 void ClockState::onEntry(){
     State::onEntry(); // Call super
+    this->displayCurrentTime(true);
 }
 
 State* ClockState::update(){
@@ -17,12 +18,17 @@ State* ClockState::update(){
     // if(plusBtn.justReleased()) return STATE_TIMER;
     // if(minusBtn.justReleased()) return STATE_SCOREBOARD;
 
+    this->displayCurrentTime(false);
+
+    return this; // No state change
+}
+
+void ClockState::displayCurrentTime(bool force){
+
     // Get current time from RTC
     DateTime now = rtc.now();
 
     // Display time
-    setHours(now.hour());
-    setMinutes(now.minute());
-
-    return this; // No state change
+    setHours(now.hour(), force);
+    setMinutes(now.minute(), force);
 }

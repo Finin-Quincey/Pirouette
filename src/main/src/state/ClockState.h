@@ -24,6 +24,10 @@ class ClockState : public State {
 
         State* update();
 
+    private:
+
+        void displayCurrentTime(bool force);
+
 };
 
 #endif
