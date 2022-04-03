@@ -14,7 +14,7 @@
 #include <AccelStepper.h>
 
 // Internal classes
-#include "Utils.h"
+#include "../Utils.h"
 
 // Constants
 static const int STEPS_PER_REVOLUTION = 2048;                   // Number of steps to rotate the output shaft 360 degrees

@@ -14,8 +14,8 @@
 #include <Arduino.h>
 
 // Internal classes
-#include "Tickable.h"
-#include "Utils.h"
+#include "../Utils.h"
+#include "../Tickable.h"
 #include "Disc.h"
 
 // TODO: Probably move these constants inside the class

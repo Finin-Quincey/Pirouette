@@ -10,7 +10,9 @@
 
 // External libraries
 #include <Arduino.h>
-#include "Tickable.h"
+
+// Internal classes
+#include "../Tickable.h"
 
 class Speaker : public Tickable {
 

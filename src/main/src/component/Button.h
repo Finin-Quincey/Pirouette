@@ -12,7 +12,7 @@
 #include <Arduino.h>
 
 // Internal classes
-#include "Tickable.h"
+#include "../Tickable.h"
 
 static const unsigned long COOLDOWN = 200; // Minimum time between button presses in ms
 

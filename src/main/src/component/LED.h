@@ -13,8 +13,8 @@
 #include <Arduino.h>
 
 // Internal classes
-#include "Tickable.h"
-#include "Utils.h"
+#include "../Utils.h"
+#include "../Tickable.h"
 
 class LED : public Tickable {
 
