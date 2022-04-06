@@ -1,3 +1,10 @@
+// ======================================================================================================
+// Controller.h
+// ======================================================================================================
+// Main file that operates the full prototype clock, responsible for overall logic, updating the various
+// components, defining interrupts, etc.
+// ======================================================================================================
+
 #ifndef Controller_h
 #define Controller_h
 
