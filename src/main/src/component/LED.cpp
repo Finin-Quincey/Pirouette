@@ -20,6 +20,7 @@ LED::LED(uint8_t pinR, uint8_t pinG, uint8_t pinB):
 
 void LED::off(){
     effectPeriod = 0;
+    fadeDuration = 0;
     setColourInternal(_BLACK);
 }
 
@@ -45,11 +46,13 @@ void LED::setColourInternal(hsv colour){
 void LED::fadeTo(hsv colour, float duration){
     stopEffect();
     fadeColour = colour;
-    // TODO
+    fadeDuration = duration;
+    fadeStartTime = millis();
 }
 
 void LED::fadeOut(float duration){
-    fadeTo(_BLACK, duration);
+    // Need to use the same hue and sat as the current colour or it will cycle through the rainbow as it fades!
+    fadeTo({colour.h, colour.s, 0}, duration);
 }
 
 void LED::startEffect(Effect effect, float period){
@@ -65,7 +68,7 @@ void LED::stopEffect(){
 
 void LED::update(){
 
-    long t = millis();
+    unsigned long t = millis();
 
     if(effectPeriod > 0){
 
@@ -93,6 +96,25 @@ void LED::update(){
 
             default:
                 break;
+        }
+    }
+
+    if(fadeDuration > 0){
+
+        unsigned long elapsed = t - fadeStartTime;
+
+        if(elapsed < fadeDuration){
+            
+            float f = (float)elapsed / fadeDuration;
+            setColourInternal({
+                clamp360(colour.h + clamp180(fadeColour.h - colour.h) * f),
+                colour.s + (fadeColour.s - colour.s) * f,
+                colour.v + (fadeColour.v - colour.v) * f
+            });
+
+        }else{
+            setColour(fadeColour); // Deliberately using external version here to set the new colour permanently
+            fadeDuration = 0;
         }
     }
 }

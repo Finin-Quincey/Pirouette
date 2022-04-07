@@ -34,6 +34,7 @@ class LED : public Tickable {
         Effect effect;
         float effectPeriod;
         unsigned long lastEffectTime;
+        float fadeDuration;
         unsigned long fadeStartTime;
         hsv fadeColour;
 

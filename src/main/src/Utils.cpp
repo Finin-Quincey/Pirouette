@@ -10,6 +10,12 @@ float clamp180(float angle){
     return angle - sign(angle) * 360 * ceil((abs(angle) - 180) / 360);
 }
 
+float clamp360(float angle){
+    // This is actually the same as angle mod 360 but % (and hence the modulo function) only works for integral types
+    float result = clamp180(angle - 180) + 180;
+    return result == 360 ? 0 : result;
+}
+
 int modulo(int num, int denom){
     // https://stackoverflow.com/questions/11720656/modulo-operation-with-negative-numbers
     return (num % denom + denom) % denom;

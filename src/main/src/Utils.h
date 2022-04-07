@@ -18,6 +18,10 @@ extern bool errored; // True if the program encountered an error somewhere, fals
 // Shifts the given angle by a multiple of 360 such that -180 < angle <= 180
 float clamp180(float angle);
 
+// Shifts the given angle by a multiple of 360 such that 0 <= angle < 360
+// (Note that, unlike clamp180, the lower bound is inclusive - it makes more sense to include zero than 360)
+float clamp360(float angle);
+
 // Returns the first argument MODULO the second argument, the way the % operator works in most languages
 int modulo(int num, int denom); // Yep, even modulo doesn't work how you expect in C++ (% actually does REMAINDER)
 
