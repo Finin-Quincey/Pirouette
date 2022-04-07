@@ -46,12 +46,15 @@ uint8_t mins = 0;
 
 bool initDone = false;
 
+int idleCounter = 0;
+
 // By always using this setter we can make sure onEntry always gets called when it should
 // Technically this is a 'free function', I've done this to make it private
 void setState(State* newState){
     if(newState == state) return; // Do nothing if it's the same as the current state
     state = newState;
     state->onEntry();
+    idleCounter = 0;
 }
 
 void do_setup(){
@@ -85,7 +88,21 @@ void do_loop(){
     }
 
     // TODO: Maybe make feedback state-specific? (i.e. don't beep if button does nothing in the current state)
-    if(selectBtn.justPressed() || plusBtn.justPressed() || minusBtn.justPressed()) speaker.playTone(1800, 50); // Beep boop
+    if(selectBtn.justPressed() || plusBtn.justPressed() || minusBtn.justPressed()){
+
+        state->setLedState();
+        idleCounter = 0;
+        speaker.playTone(1800, 50); // Beep boop
+
+    }else{
+
+        if(idleCounter > LED_SLEEP_TIME){
+            led.fadeOut(5000);
+            idleCounter = 0;
+        }else{
+            idleCounter++;
+        }
+    }
 
     // Delegate to current state to perform state-specific logic and set return value as new state
     setState(state->update());

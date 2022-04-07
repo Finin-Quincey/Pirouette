@@ -30,8 +30,9 @@
 // Constants
 
 const unsigned long SELECT_HOLD_TIME = 3000;
-const float LED_BRIGHTNESS = 0.4;
+const float LED_BRIGHTNESS = 0.25;
 const hsv LED_CLR_ERROR = {0, 1, LED_BRIGHTNESS}; // Red
+const unsigned long LED_SLEEP_TIME = 10000;
 
 // Components
 

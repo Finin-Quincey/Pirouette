@@ -9,6 +9,10 @@ State::State(hsv ledColour, LED::Effect effect, float effectPeriod):
 }
 
 void State::onEntry(){
+    setLedState();
+}
+
+void State::setLedState(){
     led.setColour(ledColour);
     led.startEffect(effect, effectPeriod);
 }

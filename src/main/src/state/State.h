@@ -22,8 +22,9 @@ class State {
     
         // Constructs a new state. Concrete subclasses should pass in a constant colour and LED effect.
         State(hsv ledColour, LED::Effect effect, float effectPeriod);
-        // Returns the LED colour
-        hsv getLEDColour();
+
+        // Sets the LED to display this state's colour and effect
+        void setLedState();
 
         // Abstract methods
 

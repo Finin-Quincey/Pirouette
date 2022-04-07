@@ -16,7 +16,6 @@ void ZeroingState::onEntry(){
 State* ZeroingState::update(){
 
     if(!hrsTensDigit.isZeroing() && !hrsUnitsDigit.isZeroing() && !minsTensDigit.isZeroing() && !minsUnitsDigit.isZeroing()){
-        led.setColour(_ORANGE);
         return STATE_CLOCK; // Switch to clock state when done zeroing
     }
 
